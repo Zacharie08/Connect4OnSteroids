@@ -118,7 +118,6 @@ class Game:
         self.player2 = colorPlayer2
 
     def seeSomething(self):
-
         for row in range(0, 15, 1):
             print("_", end="")
         print("\n", end="")
