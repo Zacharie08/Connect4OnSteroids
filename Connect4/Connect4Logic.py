@@ -129,9 +129,11 @@ class Game:
                 if self.gaming.grid[col][row] is None:
                     print("| ", end="")
                 if self.gaming.grid[col][row] == "red":
-                    print("|R", end="")
+                    print("|", end="")
+                    print("\033[91mR\033[0m", end="")
                 if self.gaming.grid[col][row] == "yellow":
-                    print("|Y", end="")
+                    print("|", end="")
+                    print("\033[93mY\033[0m", end="")
             print("|\n", end="")
 
         for col in range(15):
