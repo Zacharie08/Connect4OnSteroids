@@ -5,7 +5,7 @@ class Grid:
     def placeCoin(self, col, coin):
 
         if col < 0 or col > 6:
-            print("Invalid row")
+            #print("Invalid row")
             return False
 
         if coin not in ("red", "yellow"):
@@ -15,7 +15,7 @@ class Grid:
         for row in range(5, -1, -1):
             if self.grid[col][row] is None:
                 self.grid[col][row] = coin
-                print(f" {coin} Coin placed at {col}, {row}")
+                #print(f" {coin} Coin placed at {col}, {row}")
                 return True
 
         print("no available place")
@@ -90,7 +90,7 @@ class Grid:
     def gridFilled(self):
         for row in range(6):
             for col in range(7):
-                if self.grid[row][col] is None:
+                if self.grid[col][row] is None:
                     return False
         return True
 
@@ -117,20 +117,56 @@ class Game:
         self.player1 = colorPlayer1
         self.player2 = colorPlayer2
 
+    def seeSomething(self):
+
+        for row in range(0, 15, 1):
+            print("_", end="")
+        print("\n", end="")
+
+        for row in range(6):
+            for col in range(7):
+                #print(row, col)
+                if self.gaming.grid[col][row] is None:
+                    print("| ", end="")
+                if self.gaming.grid[col][row] == "red":
+                    print("|R", end="")
+                if self.gaming.grid[col][row] == "yellow":
+                    print("|Y", end="")
+            print("|\n", end="")
+
+        for col in range(15):
+            print("-", end="")
+        print("\n", end="")
+
     def gamingTime(self):
         while not self.gaming.verifyDraw():
 
+            self.seeSomething()
             print(f" Player 1 {self.player1} turn")
-            player1Move = input("Choose a column from 0 to 6 : ")
-            self.gaming.placeCoin(int(player1Move), self.player1)
+            while True:
+                player1Move = input("Choose a column from 0 to 6: ")
+                if self.gaming.placeCoin(int(player1Move), self.player1):
+                    break
+                else:
+                    print("Invalid move. Please choose another column.")
+
+            #self.gaming.placeCoin(int(player1Move), self.player1)
+
+            self.seeSomething()
 
             if self.gaming.verifyAllWins():
                 print(f"{self.player1} wins!")
                 break
 
             print(f" Player 2 {self.player2} turn")
-            player2Move = input("Choose a column from 0 to 6 : ")
-            self.gaming.placeCoin(int(player2Move), self.player2)
+            while True:
+                player2Move = input("Choose a column from 0 to 6: ")
+                if self.gaming.placeCoin(int(player2Move), self.player2):
+                    break
+                else:
+                    print("Invalid move. Please choose another column.")
+
+            self.seeSomething()
 
             if self.gaming.verifyAllWins():
                 print(f"{self.player2} wins!")

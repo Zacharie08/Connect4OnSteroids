@@ -10,7 +10,6 @@ from Connect4.Connect4Logic import Game
 def main():
     game = Game("yellow", "red")
     game.gamingTime()
-    print("hello")
 
 
 if __name__ == '__main__':
